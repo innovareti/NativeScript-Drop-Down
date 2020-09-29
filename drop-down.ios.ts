@@ -14,8 +14,8 @@ See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
 import { Color } from "@nativescript/core/color";
-import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base/editable-text-base";
-import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base";
+import { ItemsSource } from "@nativescript/core/ui/list-picker/list-picker-common";
 import { Font } from "@nativescript/core/ui/styling/font";
 import { Style } from "@nativescript/core/ui/styling/style";
 import {
@@ -33,28 +33,19 @@ import {
 
     textTransformProperty
 } from "@nativescript/core/ui/text-base";
-import * as types from "utils/types";
+import * as types from "@nativescript/core/utils/types";
 import { SelectedIndexChangedEventData } from ".";
 import {
     backgroundColorProperty,
-    colorProperty, DropDownBase,
-
-
-
+    colorProperty,
+    DropDownBase,
     fontInternalProperty,
     hintProperty,
     itemsPaddingProperty,
     itemsProperty,
     itemsTextAlignmentProperty,
-    layout, Length,
-
-
-
-
-
-
-
-
+    layout,
+    Length,
     paddingBottomProperty,
     paddingLeftProperty,
     paddingRightProperty,

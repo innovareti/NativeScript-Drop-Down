@@ -15,7 +15,7 @@ limitations under the License.
 ***************************************************************************** */
 import { ObservableArray } from "@nativescript/core/data/observable-array";
 import { CoercibleProperty, EventData, Property, View } from "@nativescript/core/ui/core/view";
-import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { ItemsSource } from "@nativescript/core/ui/list-picker/list-picker-common";
 import { TextAlignment } from "@nativescript/core/ui/text-base";
 
 export interface SelectedIndexChangedEventData extends EventData {
@@ -52,6 +52,7 @@ export class DropDown extends View {
     public close();
 }
 
+// @ts-ignore
 export class ValueList<T> extends ObservableArray<ValueItem<T>> implements ItemsSource {
     public getDisplay(index: number): string;
     public getValue(index: number): T;

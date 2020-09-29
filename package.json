@@ -41,9 +41,6 @@
     "AWhiteSheep (https://github.com/AWhiteSheep)"
   ],
   "license": "Apache-2.0",
-  "peerDependencies": {
-    "tns-core-modules": ">= 5"
-  },
   "devDependencies": {
     "grunt": "1.0.1",
     "grunt-contrib-clean": "1.0.0",

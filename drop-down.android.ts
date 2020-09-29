@@ -15,30 +15,23 @@ limitations under the License.
 ***************************************************************************** */
 import { Color } from "@nativescript/core/color";
 import { View } from "@nativescript/core/ui/core/view";
-import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base/editable-text-base";
+import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base";
 import { Label } from "@nativescript/core/ui/label";
 import { StackLayout } from "@nativescript/core/ui/layouts/stack-layout";
-import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { ItemsSource } from "@nativescript/core/ui/list-picker/list-picker-common";
 import { Font } from "@nativescript/core/ui/styling/font";
+import { fontInternalProperty, fontSizeProperty } from "@nativescript/core/ui/styling/style-properties";
 import {
-    fontInternalProperty,
-    fontSizeProperty, TextAlignment,
-
-
-
-    textAlignmentProperty, TextDecoration,
-
-
-
+    TextAlignment,
+    textAlignmentProperty,
+    TextDecoration,
     textDecorationProperty
 } from "@nativescript/core/ui/text-base";
-import * as types from "utils/types";
+import * as types from "@nativescript/core/utils/types";
 import { SelectedIndexChangedEventData } from ".";
 import {
     backgroundColorProperty,
     colorProperty, DropDownBase,
-
-
     hintProperty,
     itemsPaddingProperty,
     itemsProperty,
@@ -54,6 +47,8 @@ const enum RealizedViewType {
     ItemView,
     DropDownView
 }
+
+declare var android;
 
 export class DropDown extends DropDownBase {
     public nativeView: TNSSpinner;

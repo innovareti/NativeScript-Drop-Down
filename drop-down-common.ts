@@ -13,12 +13,13 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
+import { EventData } from "@nativescript/core/data/observable";
 import { ObservableArray } from "@nativescript/core/data/observable-array";
-import { CoercibleProperty, CSSType, EventData, makeParser, makeValidator, Property, View } from "@nativescript/core/ui/core/view";
+import { CoercibleProperty, CSSType, makeParser, makeValidator, Property, View } from "@nativescript/core/ui/core/view";
 import { addWeakEventListener, removeWeakEventListener } from "@nativescript/core/ui/core/weak-event-listener";
-import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { ItemsSource } from "@nativescript/core/ui/list-picker/list-picker-common";
 import { TextAlignment } from "@nativescript/core/ui/text-base";
-import * as types from "utils/types";
+import * as types from '@nativescript/core/utils/types';
 import { DropDown as DropDownDefinition, SelectedIndexChangedEventData, ValueItem, ValueList as ValueListDefinition } from ".";
 
 export * from "@nativescript/core/ui/core/view";
@@ -67,6 +68,7 @@ export interface DropDownBase {
     on(event: "selectedIndexChanged", callback: (args: SelectedIndexChangedEventData) => void, thisArg?: any);
 }
 
+// @ts-ignore
 export class ValueList<T> extends ObservableArray<ValueItem<T>> implements ValueListDefinition<T> {
     private _array: Array<ValueItem<T>>;
 
