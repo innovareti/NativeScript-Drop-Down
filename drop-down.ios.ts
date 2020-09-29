@@ -13,33 +13,48 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
-import { Color } from "color";
-import { placeholderColorProperty } from "ui/editable-text-base/editable-text-base";
-import { ItemsSource } from "ui/list-picker";
-import { Font } from "ui/styling/font";
-import { Style } from "ui/styling/style";
+import { Color } from "@nativescript/core/color";
+import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base/editable-text-base";
+import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { Font } from "@nativescript/core/ui/styling/font";
+import { Style } from "@nativescript/core/ui/styling/style";
 import {
-    TextAlignment,
-    TextDecoration,
-    TextTransform,
-    letterSpacingProperty,
-    textAlignmentProperty,
-    textDecorationProperty,
+    letterSpacingProperty, TextAlignment,
+
+
+
+    textAlignmentProperty, TextDecoration,
+
+
+
+    textDecorationProperty, TextTransform,
+
+
+
     textTransformProperty
-} from "ui/text-base";
+} from "@nativescript/core/ui/text-base";
 import * as types from "utils/types";
 import { SelectedIndexChangedEventData } from ".";
 import {
-    DropDownBase,
-    Length,
     backgroundColorProperty,
-    colorProperty,
+    colorProperty, DropDownBase,
+
+
+
     fontInternalProperty,
     hintProperty,
     itemsPaddingProperty,
     itemsProperty,
     itemsTextAlignmentProperty,
-    layout,
+    layout, Length,
+
+
+
+
+
+
+
+
     paddingBottomProperty,
     paddingLeftProperty,
     paddingRightProperty,
@@ -64,7 +79,7 @@ export class DropDown extends DropDownBase {
     private _doneButton: UIBarButtonItem;
     private _doneTapDelegate: TapHandler;
     private _accessoryViewVisible: boolean;
-    
+
     public createNativeView() {
         const dropDown = TNSDropDownLabel.initWithOwner(new WeakRef(this));
 
@@ -78,7 +93,7 @@ export class DropDown extends DropDownBase {
 
         const nativeView: TNSDropDownLabel = this.nativeViewProtected;
         const applicationFrame = UIApplication.sharedApplication.keyWindow.frame;
-        
+
         this._listPicker = UIPickerView.alloc().init();
 
         this._dropDownDelegate = DropDownListPickerDelegateImpl.initWithOwner(new WeakRef(this));
@@ -158,7 +173,7 @@ export class DropDown extends DropDownBase {
         if (!this._listPicker) {
             return;
         }
-        
+
         this._listPicker.reloadAllComponents();
 
         // Coerce selected index after we have set items to native view.
@@ -200,14 +215,14 @@ export class DropDown extends DropDownBase {
     public [itemsTextAlignmentProperty.setNative](value: TextAlignment) {
         this.nativeView.itemsTextAlignment = value;
     }
-    
+
     public [itemsPaddingProperty.getDefault](): string {
         return "";
     }
     public [itemsPaddingProperty.setNative](value: string) {
         this.nativeView.itemsPadding = value;
     }
-    
+
     public [colorProperty.getDefault](): UIColor {
         return this.nativeView.color;
     }
@@ -370,12 +385,12 @@ class DropDownListPickerDelegateImpl extends NSObject implements UIPickerViewDel
         if (style.color) {
             label.textColor = style.color.ios;
         }
-        
+
         let itemsPaddingTop;
         let itemsPaddingRight;
         let itemsPaddingBottom;
         let itemsPaddingLeft;
-        if (owner.nativeView.itemsPadding !== itemsPaddingProperty.defaultValue) { 
+        if (owner.nativeView.itemsPadding !== itemsPaddingProperty.defaultValue) {
             const itemsPadding = owner.nativeView.itemsPadding.split(/[ ,]+/).map((s) => Length.parse(s));
             if (itemsPadding.length === 1) {
                 itemsPaddingTop = itemsPadding[0];
@@ -413,8 +428,8 @@ class DropDownListPickerDelegateImpl extends NSObject implements UIPickerViewDel
         };
 
         label.font = style.fontInternal.getUIFont(label.font);
-        
-        const itemsTextAlignment = (owner.nativeView.itemsTextAlignment === itemsTextAlignmentProperty.defaultValue) 
+
+        const itemsTextAlignment = (owner.nativeView.itemsTextAlignment === itemsTextAlignmentProperty.defaultValue)
             ? style.textAlignment : owner.nativeView.itemsTextAlignment;
 
         switch (itemsTextAlignment) {
@@ -541,14 +556,14 @@ class TNSDropDownLabel extends TNSLabel {
 
         _setTextAttributes(owner.nativeView, owner.style);
     }
-    
+
     get itemsTextAlignment(): TextAlignment {
         return this._itemsTextAlignment;
     }
     set itemsTextAlignment(value: TextAlignment) {
         this._itemsTextAlignment = value;
     }
-    
+
     get itemsPadding(): string {
         return this._itemsPadding;
     }
@@ -615,16 +630,16 @@ function _setTextAttributes(nativeView: TNSLabel, style: Style) {
             break;
 
         case "underline":
-            attributes.set(NSUnderlineStyleAttributeName, NSUnderlineStyle.StyleSingle);
+            attributes.set(NSUnderlineStyleAttributeName, NSUnderlineStyle.Single);
             break;
 
         case "line-through":
-            attributes.set(NSStrikethroughStyleAttributeName, NSUnderlineStyle.StyleSingle);
+            attributes.set(NSStrikethroughStyleAttributeName, NSUnderlineStyle.Single);
             break;
 
         case "underline line-through":
-            attributes.set(NSUnderlineStyleAttributeName, NSUnderlineStyle.StyleSingle);
-            attributes.set(NSStrikethroughStyleAttributeName, NSUnderlineStyle.StyleSingle);
+            attributes.set(NSUnderlineStyleAttributeName, NSUnderlineStyle.Single);
+            attributes.set(NSStrikethroughStyleAttributeName, NSUnderlineStyle.Single);
             break;
     }
 

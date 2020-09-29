@@ -13,15 +13,15 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
-import { ObservableArray } from "data/observable-array";
-import { CSSType, CoercibleProperty, EventData, Property, View, makeParser, makeValidator } from "ui/core/view";
-import { addWeakEventListener, removeWeakEventListener } from "ui/core/weak-event-listener";
-import { ItemsSource } from "ui/list-picker";
-import { TextAlignment } from "ui/text-base";
+import { ObservableArray } from "@nativescript/core/data/observable-array";
+import { CoercibleProperty, CSSType, EventData, makeParser, makeValidator, Property, View } from "@nativescript/core/ui/core/view";
+import { addWeakEventListener, removeWeakEventListener } from "@nativescript/core/ui/core/weak-event-listener";
+import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { TextAlignment } from "@nativescript/core/ui/text-base";
 import * as types from "utils/types";
 import { DropDown as DropDownDefinition, SelectedIndexChangedEventData, ValueItem, ValueList as ValueListDefinition } from ".";
 
-export * from "ui/core/view";
+export * from "@nativescript/core/ui/core/view";
 
 @CSSType("DropDown")
 export abstract class DropDownBase extends View implements DropDownDefinition {
@@ -160,10 +160,10 @@ export const hintProperty = new Property<DropDownBase, string>({
 hintProperty.register(DropDownBase);
 
 const textAlignmentConverter = makeParser<TextAlignment>(makeValidator<TextAlignment>("initial", "left", "center", "right"));
-export const itemsTextAlignmentProperty = new Property<DropDownBase, TextAlignment>({ 
-    name: "itemsTextAlignment", 
-    defaultValue: "initial", 
-    valueConverter: textAlignmentConverter 
+export const itemsTextAlignmentProperty = new Property<DropDownBase, TextAlignment>({
+    name: "itemsTextAlignment",
+    defaultValue: "initial",
+    valueConverter: textAlignmentConverter
 });
 itemsTextAlignmentProperty.register(DropDownBase);
 

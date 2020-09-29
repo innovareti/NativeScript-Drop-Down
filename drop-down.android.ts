@@ -13,27 +13,32 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ***************************************************************************** */
-import { Color } from "color";
-import { View } from "ui/core/view";
-import { placeholderColorProperty } from "ui/editable-text-base/editable-text-base";
-import { Label } from "ui/label";
-import { StackLayout } from "ui/layouts/stack-layout";
-import { ItemsSource } from "ui/list-picker";
-import { Font } from "ui/styling/font";
+import { Color } from "@nativescript/core/color";
+import { View } from "@nativescript/core/ui/core/view";
+import { placeholderColorProperty } from "@nativescript/core/ui/editable-text-base/editable-text-base";
+import { Label } from "@nativescript/core/ui/label";
+import { StackLayout } from "@nativescript/core/ui/layouts/stack-layout";
+import { ItemsSource } from "@nativescript/core/ui/list-picker";
+import { Font } from "@nativescript/core/ui/styling/font";
 import {
-    TextAlignment,
-    TextDecoration,
     fontInternalProperty,
-    fontSizeProperty,
-    textAlignmentProperty,
+    fontSizeProperty, TextAlignment,
+
+
+
+    textAlignmentProperty, TextDecoration,
+
+
+
     textDecorationProperty
-} from "ui/text-base";
+} from "@nativescript/core/ui/text-base";
 import * as types from "utils/types";
 import { SelectedIndexChangedEventData } from ".";
 import {
-    DropDownBase,
     backgroundColorProperty,
-    colorProperty,
+    colorProperty, DropDownBase,
+
+
     hintProperty,
     itemsPaddingProperty,
     itemsProperty,
@@ -127,7 +132,7 @@ export class DropDown extends DropDownBase {
 
         if (this.android && this.android.getAdapter()) {
             (this.android.getAdapter() as DropDownAdapter).notifyDataSetChanged();
-        }    
+        }
 
         // Coerce selected index after we have set items to native view.
         selectedIndexProperty.coerce(this);
@@ -142,7 +147,7 @@ export class DropDown extends DropDownBase {
             this._propagateStylePropertyToRealizedViews("color", value, false);
         }
     }
-    
+
     public [fontInternalProperty.setNative](value: Font | android.graphics.Typeface) {
         this._propagateStylePropertyToRealizedViews("fontInternal", value, true);
     }
@@ -152,7 +157,7 @@ export class DropDown extends DropDownBase {
             this._propagateStylePropertyToRealizedViews("fontSize", value, true);
         }
     }
-    
+
     public [hintProperty.getDefault](): string {
         return "";
     }
@@ -166,7 +171,7 @@ export class DropDown extends DropDownBase {
     public [itemsPaddingProperty.setNative](value: string) {
         this.nativeView.itemsPadding = value;
     }
-    
+
     public [itemsProperty.getDefault](): any[] {
         return null;
     }
@@ -177,14 +182,14 @@ export class DropDown extends DropDownBase {
         // Coerce selected index after we have set items to native view.
         selectedIndexProperty.coerce(this);
     }
-    
+
     public [itemsTextAlignmentProperty.getDefault](): TextAlignment {
         return "initial";
     }
     public [itemsTextAlignmentProperty.setNative](value: TextAlignment) {
         this.nativeView.itemsTextAlignment = value;
     }
-    
+
     public [textDecorationProperty.getDefault](): TextDecoration {
         return "none";
     }
@@ -202,7 +207,7 @@ export class DropDown extends DropDownBase {
     public [placeholderColorProperty.setNative](value: Color | number) {
         this._propagateStylePropertyToRealizedViews("placeholderColor", value, true);
     }
-    
+
     public [selectedIndexProperty.getDefault](): number {
         return null;
     }
@@ -247,6 +252,7 @@ export class DropDown extends DropDownBase {
                         || property === "color"
                         || property === "placeholderColor") {
                         const label = view.getViewById<Label>(LABELVIEWID);
+                        // @ts-ignore
                         label.style[property] = value;
                     }
                     else {
@@ -275,9 +281,9 @@ interface TNSSpinner extends android.widget.Spinner {
     itemSelectedListener;
     itemsTextAlignment;
     itemsPadding;
-    
+
     /*tslint:disable-next-line no-misused-new*/
-    new (owner: WeakRef<DropDown>): TNSSpinner;
+    new(owner: WeakRef<DropDown>): TNSSpinner;
 
     /** onDetachedFromWindow is protected so public version renamed */
     onDetachedFromWindowX();
@@ -299,21 +305,21 @@ function initializeTNSSpinner() {
             super(owner.get()._context);
             return global.__native(this);
         }
-        
+
         get itemsTextAlignment(): TextAlignment {
             return this._itemsTextAlignment;
         }
         set itemsTextAlignment(value: TextAlignment) {
             this._itemsTextAlignment = value;
         }
-        
+
         get itemsPadding(): string {
             return this._itemsPadding;
         }
         set itemsPadding(value: string) {
             this._itemsPadding = value;
         }
-        
+
         public performClick() {
             const owner = this.owner.get();
 
@@ -350,9 +356,9 @@ function initializeTNSSpinner() {
 /* TNSSpinner END */
 
 /* A snapshot-friendly, lazy-loaded class for DropDownAdpater BEGIN */
-interface DropDownAdapter extends android.widget.BaseAdapter, android.widget.ISpinnerAdapter {
+interface DropDownAdapter extends android.widget.BaseAdapter, android.widget.SpinnerAdapter {
     /*tslint:disable-next-line no-misused-new*/
-    new (owner: WeakRef<DropDown>): DropDownAdapter;
+    new(owner: WeakRef<DropDown>): DropDownAdapter;
 }
 
 let DropDownAdapter: DropDownAdapter;
@@ -362,7 +368,7 @@ function initializeDropDownAdapter() {
         return;
     }
 
-    class DropDownAdapterImpl extends android.widget.BaseAdapter implements android.widget.ISpinnerAdapter {
+    class DropDownAdapterImpl extends android.widget.BaseAdapter implements android.widget.SpinnerAdapter {
         constructor(private owner: WeakRef<DropDown>) {
             super();
 
@@ -446,19 +452,19 @@ function initializeDropDownAdapter() {
                     label.style.placeholderColor = owner.style.placeholderColor;
                 }
                 label.style.textDecoration = owner.style.textDecoration;
-                
-                label.style.textAlignment = owner.nativeView.itemsTextAlignment !== itemsTextAlignmentProperty.defaultValue 
+
+                label.style.textAlignment = owner.nativeView.itemsTextAlignment !== itemsTextAlignmentProperty.defaultValue
                     && realizedViewType === 1 ? owner.nativeView.itemsTextAlignment : owner.style.textAlignment;
-                
+
                 label.style.fontInternal = owner.style.fontInternal;
                 if (owner.style.fontSize) {
                     label.style.fontSize = owner.style.fontSize;
                 }
                 view.style.backgroundColor = owner.style.backgroundColor;
-                
-                view.style.padding = owner.nativeView.itemsPadding !== itemsPaddingProperty.defaultValue 
+
+                view.style.padding = owner.nativeView.itemsPadding !== itemsPaddingProperty.defaultValue
                     && realizedViewType === 1 ? owner.nativeView.itemsPadding : owner.style.padding;
-                
+
                 view.style.height = owner.style.height;
 
                 if (realizedViewType === RealizedViewType.DropDownView) {
@@ -498,7 +504,7 @@ function initializeDropDownAdapter() {
 /* A snapshot-friendly, lazy-loaded class for DropDownItemSelectedListener BEGIN */
 interface DropDownItemSelectedListener extends java.lang.Object, android.widget.AdapterView.OnItemSelectedListener {
     /*tslint:disable-next-line no-misused-new*/
-    new (owner: WeakRef<DropDown>): DropDownItemSelectedListener;
+    new(owner: WeakRef<DropDown>): DropDownItemSelectedListener;
 }
 
 let DropDownItemSelectedListener: DropDownItemSelectedListener;
@@ -530,7 +536,7 @@ function initializeDropDownItemSelectedListener() {
                     oldIndex,
                     newIndex
                 } as SelectedIndexChangedEventData);
-            
+
                 // Seems if the user does not select an item the control reuses the views on the next open.
                 // So it should be safe to clear the cache once the user selects an item (and not when the dropdown is closed)
                 owner._clearCache(RealizedViewType.DropDownView);
